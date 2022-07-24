@@ -6,8 +6,8 @@ import viteSvgIcons from 'vite-plugin-svg-icons'
 import path from 'path'
 // const HOST = '0.0.0.0'
 export default ({ mode }) => {
-  process.env = { ...process.env, ...loadEnv(mode, process.cwd()) }
-  console.log(process.env)
+  // process.env = { ...process.env, ...loadEnv(mode, process.cwd()) }
+  // console.log(process.env)
   return defineConfig({
     base: '/',
     server: {
@@ -37,8 +37,6 @@ export default ({ mode }) => {
     },
 
     build: {
-      //浏览器兼容性  "esnext"|"modules",指定es版本,浏览器的兼容性
-      target: 'modules',
       //传递给Terser的更多 minify 选项。
       terserOptions: {
         compress: {
@@ -114,8 +112,8 @@ export default ({ mode }) => {
         },
         //指定传递给 css 预处理器的选项
         less: {
-          additionalData: '@import "./src/styles/index.less";',
-          javascriptEnabled: true
+          // additionalData: '@import "./src/styles/index.less";',
+          // javascriptEnabled: true
         }
       }
     },
