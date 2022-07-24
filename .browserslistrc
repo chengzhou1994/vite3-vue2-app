@@ -1,0 +1,8 @@
+# Browsers that we support
+> 1%            #支持市场份额大于 1% 的浏览器。
+last 9 versions # 即支持各类浏览器最近的一个版本，当然这里的 1 是可变的数字
+not dead
+# not 是逻辑非操作符，即对 dead 取反，而浏览器被认为是 dead 条件是：最新的两个版本中发现其市场份额已经低于 0.5% 并且 24 个月内没有任务官方支持和更新了
+# npx browserslist  配置文件好后，可以使用命令在终端打印出有哪些目标浏览器。
+# https://juejin.cn/post/6996588476955115533
+# https://juejin.cn/post/7033765500228206622#heading-0
