@@ -72,7 +72,7 @@ export default ({ mode }) => {
       //@rollup/plugin-commonjs 插件的选项
       commonjsOptions: {},
       //构建的库
-      lib: {},
+      // lib: {},
       // 自定义底层的Rollup 打包配置
       rollupOptions: {
         output: {
