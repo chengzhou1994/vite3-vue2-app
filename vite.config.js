@@ -1,13 +1,17 @@
+import 'node:fs'
 import { defineConfig, loadEnv } from 'vite'
 import legacy from '@vitejs/plugin-legacy'
 import { createVuePlugin } from 'vite-plugin-vue2'
 import viteCompression from 'vite-plugin-compression'
 import viteSvgIcons from 'vite-plugin-svg-icons'
+import { viteMockServe } from 'vite-plugin-mock'
 import path from 'path'
-// const HOST = '0.0.0.0'
+const HOST = '0.0.0.0'
 export default ({ mode }) => {
-  // process.env = { ...process.env, ...loadEnv(mode, process.cwd()) }
-  // console.log(process.env)
+  process.env = { ...process.env, ...loadEnv(mode, process.cwd()) }
+  const localEnabled = process.env.VITE_USE_MOCK
+  const prodEnabled = process.env.VITE_USE_MOCK
+  console.log(localEnabled, prodEnabled)
   return defineConfig({
     base: '/',
     server: {
@@ -21,8 +25,8 @@ export default ({ mode }) => {
       https: false, // 是否开启https
       strictPort: false, // 设为false时，若端口已被占用则会尝试下一个可用端口,而不是直接退出
       open: true, // 在服务器启动时自动在浏览器中打开应用程序
-      // host: HOST,
-      port: process.env.PORT
+      host: HOST
+      // port: process.env.PORT
       // proxy: {
       // 为开发服务器配置自定义代理规则
       // 字符串简写写法
@@ -119,6 +123,20 @@ export default ({ mode }) => {
     },
     plugins: [
       createVuePlugin(/* options */),
+      viteMockServe({
+        mockPath: './mock/index', // ↓解析根目录下的mock文件夹 你的mock文件地址
+        localEnabled: localEnabled, // 开发打包开关
+        prodEnabled: prodEnabled, // 生产打包开关
+        supportTs: false,
+        watchFiles: true,
+        // 如果prodEnable设置为true，则在编译打包的时候，会把mock的文件打包进去，如果你不写injectFile，那就是默认注入到main.ts/main.js
+        injectCode: `
+         import { setupMock } from './mock';
+         setupMock();
+       `,
+        // 在全局中注入代码,不配置的话默认是在src/main.js/main.ts
+        injectFile: 'src/main.js'
+      }),
       // poilfill
       legacy({
         targets: ['ie >= 11'],

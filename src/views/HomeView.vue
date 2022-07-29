@@ -3,6 +3,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: '',
   data() {
@@ -10,8 +11,17 @@ export default {
   },
   components: {},
   props: {},
-  methods: {},
-  created() {},
+  methods: {
+    init() {
+      console.log('HomeView init')
+      axios.get('/api/getUser').then((res) => {
+        console.log(res)
+      })
+    }
+  },
+  created() {
+    this.init()
+  },
   computed: {},
   watch: {}
 }
