@@ -1,4 +1,3 @@
-import 'node:fs'
 import { defineConfig, loadEnv } from 'vite'
 import legacy from '@vitejs/plugin-legacy'
 import { createVuePlugin } from 'vite-plugin-vue2'
@@ -127,15 +126,16 @@ export default ({ mode }) => {
         mockPath: './mock/index', // ↓解析根目录下的mock文件夹 你的mock文件地址
         localEnabled: localEnabled, // 开发打包开关
         prodEnabled: prodEnabled, // 生产打包开关
-        supportTs: false,
+        supportTs: false, //打开后，可以读取 ts 文件模块。 请注意，打开后将无法监视.js 文件
         watchFiles: true,
         // 如果prodEnable设置为true，则在编译打包的时候，会把mock的文件打包进去，如果你不写injectFile，那就是默认注入到main.ts/main.js
         injectCode: `
-         import { setupMock } from './mock';
+         import { setupMock } from './mock/index.js';
          setupMock();
        `,
         // 在全局中注入代码,不配置的话默认是在src/main.js/main.ts
-        injectFile: 'src/main.js'
+        // injectFile: 'src/main.js',
+        logger: true //是否在控制台显示请求日志
       }),
       // poilfill
       legacy({
@@ -157,6 +157,11 @@ export default ({ mode }) => {
         symbolId: 'icon-[name]'
       })
     ],
+    test: {
+      globals: true,
+      environment: 'jsdom'
+      // setupFiles: ['vitest.setup.ts']
+    },
     // 强制预构建插件包
     optimizeDeps: {
       //检测需要预构建的依赖项

@@ -14,7 +14,7 @@ export default {
   methods: {
     init() {
       console.log('HomeView init')
-      axios.get('/api/getUser').then((res) => {
+      axios.get('/api/users').then((res) => {
         console.log(res)
       })
     }

@@ -5,7 +5,6 @@ import router from './router'
 import './assets/main.css'
 Vue.use(PiniaVuePlugin)
 
-Vue.config.productionTip = false
 new Vue({
   router,
   pinia: createPinia(),
