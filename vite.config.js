@@ -49,31 +49,26 @@ export default ({ mode }) => {
         }
       },
       emptyOutDir: true, //默认true默认情况下，若outDir在root目录下，则Vite会在构建时清空该目录。
-      //小于此阈值的导入或引用资源将内联为 base64 编码，以避免额外的 http 请求。设置为 0 可以完全禁用此项
-      assetsInlineLimit: 4096,
+      assetsInlineLimit: 4096,   //小于此阈值的导入或引用资源将内联为 base64 编码，以避免额外的 http 请求。设置为 0 可以完全禁用此项
       outDir: 'dist', // 指定输出路径,默认dist
       reportCompressedSize: false, // 取消计算文件大小，加快打包速度
       sourcemap: true,
       assetsDir: 'assets', //默认assets
       cssCodeSplit: true, //启用/禁用CSS代码拆分 默认true, 用则所有样式保存在一个css里面
-      //启用/禁用 brotli 压缩大小报告
-      brotliSize: true,
-      //chunk 大小警告的限制
-      chunkSizeWarningLimit: 500,
-      ssr: {
-        // 列出的是要为 SSR 强制外部化的依赖
-        external: [],
-        //列出的是防止被 SSR 外部化依赖项
-        noExternal: []
-      },
+      brotliSize: true,  //启用/禁用 brotli 压缩大小报告
+      chunkSizeWarningLimit: 500,//chunk 大小警告的限制
+      // ssr: {
+      //   // 列出的是要为 SSR 强制外部化的依赖
+      //   external: [],
+      //   //列出的是防止被 SSR 外部化依赖项
+      //   noExternal: []
+      // },
       // 设置为 false 可以禁用最小化混淆，
       // 或是用来指定使用哪种混淆器
       // boolean | 'terser' | 'esbuild'
       minify: 'terser', // 混淆器terser构建后文件体积更小
-      //当设置为 true，构建后将会生成 manifest.json 文件
-      manifest: false,
-      //@rollup/plugin-commonjs 插件的选项
-      commonjsOptions: {},
+      manifest: false, //当设置为 true，构建后将会生成 manifest.json 文件
+      commonjsOptions: {}, //@rollup/plugin-commonjs 插件的选项
       //构建的库
       // lib: {},
       // 自定义底层的Rollup 打包配置
@@ -126,13 +121,13 @@ export default ({ mode }) => {
         mockPath: './mock/index', // ↓解析根目录下的mock文件夹 你的mock文件地址
         localEnabled: localEnabled, // 开发打包开关
         prodEnabled: prodEnabled, // 生产打包开关
-        supportTs: false, //打开后，可以读取 ts 文件模块。 请注意，打开后将无法监视.js 文件
+        supportTs: false, //打开后，可以读取ts文件模块。 请注意，打开后将无法监视.js 文件
         watchFiles: true,
         // 如果prodEnable设置为true，则在编译打包的时候，会把mock的文件打包进去，如果你不写injectFile，那就是默认注入到main.ts/main.js
-        injectCode: `
-         import { setupMock } from './mock/index.js';
-         setupMock();
-       `,
+        //   injectCode: `
+        //    import { setupMock } from './mock/index.js';
+        //    setupMock();
+        //  `,
         // 在全局中注入代码,不配置的话默认是在src/main.js/main.ts
         // injectFile: 'src/main.js',
         logger: true //是否在控制台显示请求日志
@@ -174,8 +169,8 @@ export default ({ mode }) => {
         'moment/dist/locale/zh-cn',
         //  'ant-design-vue/es/locale/en_US',
         'moment/dist/locale/eu'
-      ]
-      // exclude: ['vue-demi', 'consolidate'],//排除在优化之外
+      ],
+      exclude: ['vue-demi', 'consolidate'] //排除在优化之外
     }
   })
 }
