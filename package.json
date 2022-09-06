@@ -51,8 +51,8 @@
     "less-loader": "^5.0.0",
     "prettier": "^2.5.1",
     "terser": "^5.14.2",
-    "vite": "^3.0.4",
-    "vitest": "^0.18.1",
+    "vite": "3.0.9",
+    "vitest": "^0.23.1",
     "vue-demi": "^0.13.11",
     "vue-template-compiler": "2.6.14"
   }
